@@ -40,29 +40,36 @@ public class ProductController {
 
         return ResponseEntity.ok(productService.saveProduct(productDTO));
     }
-
+//
+//    @PutMapping("/update")
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    public ResponseEntity<Response> updateProduct(
+//            @RequestParam(value = "name",required = false) String  name,
+//            @RequestParam(value = "sku",required = false) String  sku,
+//            @RequestParam(value = "price",required = false) BigDecimal price,
+//            @RequestParam(value = "stockQuantity",required = false) Integer  stockQuantity,
+//            @RequestParam(value = "productId",required = true) Long  productId,
+//            @RequestParam(value = "categoryId",required = false) Long  categoryId,
+//            @RequestParam(value = "description", required = false) String  description
+//    ) {
+//        ProductDTO productDTO = new ProductDTO();
+//        productDTO.setName(name);
+//        productDTO.setSku(sku);
+//        productDTO.setPrice(price);
+//        productDTO.setStockQuantity(stockQuantity);
+//        productDTO.setCategoryId(categoryId);
+//        productDTO.setProductId(productId);
+//        productDTO.setDescription(description);
+//
+//        return ResponseEntity.ok(productService.updateProduct(productDTO));
+//    }
+    
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> updateProduct(
-            @RequestParam(value = "name",required = false) String  name,
-            @RequestParam(value = "sku",required = false) String  sku,
-            @RequestParam(value = "price",required = false) BigDecimal price,
-            @RequestParam(value = "stockQuantity",required = false) Integer  stockQuantity,
-            @RequestParam(value = "productId",required = true) Long  productId,
-            @RequestParam(value = "categoryId",required = false) Long  categoryId,
-            @RequestParam(value = "description", required = false) String  description
-    ) {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName(name);
-        productDTO.setSku(sku);
-        productDTO.setPrice(price);
-        productDTO.setStockQuantity(stockQuantity);
-        productDTO.setCategoryId(categoryId);
-        productDTO.setProductId(productId);
-        productDTO.setDescription(description);
-
+    public ResponseEntity<Response> updateProduct(@RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.updateProduct(productDTO));
     }
+
 
     @GetMapping("/all")
     public ResponseEntity<Response> getAllProducts() {
