@@ -1,5 +1,6 @@
 package com.sit.InventoryManagementSystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,47 +21,46 @@ import java.time.LocalDateTime;
 @Builder
 @Table(name = "products")
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @NotBlank(message = "Name is required")
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotBlank(message = "Sku is required")
-    @Column(unique = true)
-    private String sku;
+	@NotBlank(message = "Name is required")
+	private String name;
 
-    @Positive(message = "Product price must be a positive value")
-    private BigDecimal price;
+	@NotBlank(message = "Sku is required")
+	@Column(unique = true)
+	private String sku;
 
-    @Min(value = 0, message = "Stock quantity cannot be lesser than zero")
-    private Integer stockQuantity;
+	@Positive(message = "Product price must be a positive value")
+	private BigDecimal price;
 
-    private String description;
+	@Min(value = 0, message = "Stock quantity cannot be lesser than zero")
+	private Integer stockQuantity;
 
-    private LocalDateTime expiryDate;
+	private String description;
 
-    private LocalDateTime updatedAt;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate expiryDate;
 
-    private final LocalDateTime createdAt = LocalDateTime.now();
+	@Column(name = "mgf_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate mgfDate;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+	private LocalDateTime updatedAt;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sku='" + sku + '\'' +
-                ", price=" + price +
-                ", stockQuantity=" + stockQuantity +
-                ", description='" + description + '\'' +
-                ", expiryDate=" + expiryDate +
-                ", updatedAt=" + updatedAt +
-                ", createdAt=" + createdAt +
-                '}';
-    }
+	private final LocalDateTime createdAt = LocalDateTime.now();
+
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
+
+	@Override
+	public String toString() {
+		return "Product{" + "id=" + id + ", name='" + name + '\'' + ", sku='" + sku + '\'' + ", price=" + price
+				+ ", stockQuantity=" + stockQuantity + ", description='" + description + '\'' + ", expiryDate="
+				+ expiryDate + ", mgfDate=" + mgfDate + ", updatedAt=" + updatedAt + ", createdAt=" + createdAt
+				+ ", category=" + (category != null ? category.getName() : null) + '}';
+	}
 }

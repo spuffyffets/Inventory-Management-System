@@ -41,6 +41,8 @@ public class ProductServiceImpl implements ProductService {
                 .price(productDTO.getPrice())
                 .stockQuantity(productDTO.getStockQuantity())
                 .description(productDTO.getDescription())
+                .mgfDate(productDTO.getMgfDate())          
+                .expiryDate(productDTO.getExpiryDate()) 
                 .category(category)
                 .build();
 
@@ -65,7 +67,6 @@ public class ProductServiceImpl implements ProductService {
             existingProduct.setCategory(category);
         }
 
-        // Check and update fields
         if (productDTO.getName() != null && !productDTO.getName().isBlank()) {
             existingProduct.setName(productDTO.getName());
         }
@@ -86,13 +87,22 @@ public class ProductServiceImpl implements ProductService {
             existingProduct.setStockQuantity(productDTO.getStockQuantity());
         }
 
-        // Update the product
+        // ✅ Add these two:
+        if (productDTO.getMgfDate() != null) {
+            existingProduct.setMgfDate(productDTO.getMgfDate());
+        }
+
+        if (productDTO.getExpiryDate() != null) {
+            existingProduct.setExpiryDate(productDTO.getExpiryDate());
+        }
+
         productRepository.save(existingProduct);
         return Response.builder()
                 .status(200)
                 .message("Product successfully updated")
                 .build();
     }
+
 
     @Override
     public Response getAllProducts() {

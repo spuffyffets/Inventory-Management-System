@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,26 +17,28 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDTO {
 
-    private Long id;
+	private Long id;
 
-    private Long productId;
-    private Long categoryId;
-    private Long supplierId;
+	private Long productId;
+	private Long categoryId;
+	private Long supplierId;
 
-    private String name;
+	private String name;
 
-    private String sku;
+	private String sku;
 
-    private BigDecimal price;
+	private BigDecimal price;
 
-    private Integer stockQuantity;
+	private Integer stockQuantity;
 
-    private String description;
+	private String description;
 
-    private LocalDateTime expiryDate;
+	private LocalDate mgfDate;
 
-    private LocalDateTime updatedAt;
+	private LocalDate expiryDate;
 
-    private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
+
+	private LocalDateTime createdAt;
 
 }
