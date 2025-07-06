@@ -4,16 +4,22 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.sit.InventoryManagementSystem.dto.ProductDTO;
 import com.sit.InventoryManagementSystem.dto.Response;
 import com.sit.InventoryManagementSystem.entity.Category;
 import com.sit.InventoryManagementSystem.entity.Product;
+import com.sit.InventoryManagementSystem.entity.User;
 import com.sit.InventoryManagementSystem.exceptions.NotFoundException;
+import com.sit.InventoryManagementSystem.mongo.service.AuditLogService;
 import com.sit.InventoryManagementSystem.repository.CategoryRepository;
 import com.sit.InventoryManagementSystem.repository.ProductRepository;
+import com.sit.InventoryManagementSystem.repository.UserRepository;
 import com.sit.InventoryManagementSystem.service.ProductService;
 
 import java.math.BigDecimal;
@@ -23,36 +29,81 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+	@Autowired
+	private AuditLogService auditLogService;
+	@Autowired
+    private UserRepository userRepository;
 
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
     private final CategoryRepository categoryRepository;
 
+//    @Override
+//    public Response saveProduct(ProductDTO productDTO) {
+//
+//        Category category = categoryRepository.findById(productDTO.getCategoryId())
+//                .orElseThrow(() -> new NotFoundException("Category Not Found"));
+//
+//        
+//        Product productToSave = Product.builder()
+//                .name(productDTO.getName())
+//                .sku(productDTO.getSku())
+//                .price(productDTO.getPrice())
+//                .stockQuantity(productDTO.getStockQuantity())
+//                .description(productDTO.getDescription())
+//                .mgfDate(productDTO.getMgfDate())          
+//                .expiryDate(productDTO.getExpiryDate()) 
+//                .category(category)
+//                .build();
+//
+//        
+//        productRepository.save(productToSave);
+//        return Response.builder()
+//                .status(200)
+//                .message("Product successfully saved")
+//                .build();
+//    }
     @Override
     public Response saveProduct(ProductDTO productDTO) {
 
         Category category = categoryRepository.findById(productDTO.getCategoryId())
                 .orElseThrow(() -> new NotFoundException("Category Not Found"));
 
-        // Map out product DTO to product entity
         Product productToSave = Product.builder()
                 .name(productDTO.getName())
                 .sku(productDTO.getSku())
                 .price(productDTO.getPrice())
                 .stockQuantity(productDTO.getStockQuantity())
                 .description(productDTO.getDescription())
-                .mgfDate(productDTO.getMgfDate())          
-                .expiryDate(productDTO.getExpiryDate()) 
+                .mgfDate(productDTO.getMgfDate())
+                .expiryDate(productDTO.getExpiryDate())
                 .category(category)
                 .build();
 
-        // Save the product to the database
         productRepository.save(productToSave);
+
+        
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+       
+        auditLogService.logAction(
+                user.getEmail(),
+                user.getName(),
+                "ADD_PRODUCT",
+                "Added product: " + productDTO.getName() + ", SKU: " + productDTO.getSku()
+        );
+
         return Response.builder()
                 .status(200)
                 .message("Product successfully saved")
                 .build();
     }
+
+
 
     @Override
     public Response updateProduct(ProductDTO productDTO) {
@@ -60,7 +111,7 @@ public class ProductServiceImpl implements ProductService {
         Product existingProduct = productRepository.findById(productDTO.getProductId())
                 .orElseThrow(() -> new NotFoundException("Product Not Found"));
 
-        // Check if category is to be changed for the product
+        //  category change keli teva check karel 
         if (productDTO.getCategoryId() != null && productDTO.getCategoryId() > 0) {
             Category category = categoryRepository.findById(productDTO.getCategoryId())
                     .orElseThrow(() -> new NotFoundException("Category Not Found"));
@@ -87,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
             existingProduct.setStockQuantity(productDTO.getStockQuantity());
         }
 
-        // ✅ Add these two:
+       
         if (productDTO.getMgfDate() != null) {
             existingProduct.setMgfDate(productDTO.getMgfDate());
         }
@@ -95,7 +146,9 @@ public class ProductServiceImpl implements ProductService {
         if (productDTO.getExpiryDate() != null) {
             existingProduct.setExpiryDate(productDTO.getExpiryDate());
         }
-
+        
+//         auditLogService.logAction(adminname, , null, null);
+        
         productRepository.save(existingProduct);
         return Response.builder()
                 .status(200)

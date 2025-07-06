@@ -1,6 +1,7 @@
 package com.sit.InventoryManagementSystem.entity;
 
 import jakarta.persistence.*;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
