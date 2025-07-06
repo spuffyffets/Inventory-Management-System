@@ -29,6 +29,9 @@ C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\Inventory
 C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\exceptions\NameValueRequiredException.java
 C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\exceptions\NotFoundException.java
 C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\InventoryManagementSystemApplication.java
+C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\mongo\model\AuditLog.java
+C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\mongo\repository\AuditLogRepository.java
+C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\mongo\service\AuditLogService.java
 C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\repository\CategoryRepository.java
 C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\repository\ProductRepository.java
 C:\Users\suchi\git\Inventory-IMS-Backend\backend\src\main\java\com\sit\InventoryManagementSystem\repository\SupplierRepository.java

@@ -3,6 +3,7 @@ com\sit\InventoryManagementSystem\InventoryManagementSystemApplication.class
 com\sit\InventoryManagementSystem\repository\ProductRepository.class
 com\sit\InventoryManagementSystem\service\impl\ProductServiceImpl.class
 com\sit\InventoryManagementSystem\entity\Supplier.class
+com\sit\InventoryManagementSystem\mongo\repository\AuditLogRepository.class
 com\sit\InventoryManagementSystem\controller\UserController.class
 com\sit\InventoryManagementSystem\controller\CategoryController.class
 com\sit\InventoryManagementSystem\security\SecurityFilter.class
@@ -19,6 +20,7 @@ com\sit\InventoryManagementSystem\config\ModelMapperConfig.class
 com\sit\InventoryManagementSystem\exceptions\NotFoundException.class
 com\sit\InventoryManagementSystem\dto\RegisterRequest.class
 com\sit\InventoryManagementSystem\entity\Category$CategoryBuilder.class
+com\sit\InventoryManagementSystem\mongo\model\AuditLog$AuditLogBuilder.class
 com\sit\InventoryManagementSystem\security\AuthUser$AuthUserBuilder.class
 com\sit\InventoryManagementSystem\dto\CategoryDTO.class
 com\sit\InventoryManagementSystem\entity\Product$ProductBuilder.class
@@ -32,6 +34,7 @@ com\sit\InventoryManagementSystem\entity\Transaction$TransactionBuilder.class
 com\sit\InventoryManagementSystem\enums\TransactionStatus.class
 com\sit\InventoryManagementSystem\security\JwtUtils.class
 com\sit\InventoryManagementSystem\service\impl\CategoryServiceImpl$1.class
+com\sit\InventoryManagementSystem\mongo\service\AuditLogService.class
 com\sit\InventoryManagementSystem\service\impl\TransactionServiceImpl$2.class
 com\sit\InventoryManagementSystem\exceptions\CustomAccessDeniedHandler.class
 com\sit\InventoryManagementSystem\service\impl\UserServiceImpl$1.class
@@ -61,6 +64,7 @@ com\sit\InventoryManagementSystem\entity\Supplier$SupplierBuilder.class
 com\sit\InventoryManagementSystem\security\CustomUserDetailsService.class
 com\sit\InventoryManagementSystem\controller\SupplierController.class
 com\sit\InventoryManagementSystem\enums\TransactionType.class
+com\sit\InventoryManagementSystem\mongo\model\AuditLog.class
 com\sit\InventoryManagementSystem\service\impl\UserServiceImpl.class
 com\sit\InventoryManagementSystem\service\SupplierService.class
 com\sit\InventoryManagementSystem\entity\Category.class
